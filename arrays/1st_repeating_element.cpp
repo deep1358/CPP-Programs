@@ -1,15 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int maxOfArr(int a[], int n)
-{
-  int mx = INT_MIN;
-  for (int i = 0; i < n; i++)
-  {
-    mx = max(mx, a[i]);
-  }
-  return mx;
-}
+// int maxOfArr(int a[], int n)
+// {
+//   int mx = INT_MIN;
+//   for (int i = 0; i < n; i++)
+//   {
+//     mx = max(mx, a[i]);
+//   }
+//   return mx;
+// }
 
 int main()
 {
@@ -20,32 +20,44 @@ int main()
   {
     cin >> a[i];
   }
-  int maxNo = maxOfArr(a, n);
-  int b[maxNo];
+  map<int, int> dict;
+  map<int, int>::iterator itr;
   for (int i = 0; i < n; i++)
   {
-    b[i] = -1;
-  }
-  int minIdx = INT_MAX;
-  for (int i = 0; i < n; i++)
-  {
-    if (b[a[i]] != -1)
+    if (dict.count(a[i]))
     {
-      minIdx = min(minIdx, b[a[i]]);
+      cout << a[i];
+      break;
     }
     else
-    {
-      b[a[i]] = i;
-    }
+      dict[a[i]] = 1;
   }
-  if (minIdx == INT_MAX)
-  {
-    cout << "-1" << endl;
-  }
-  else
-  {
-    cout << minIdx + 1 << endl;
-  }
+  // int maxNo = maxOfArr(a, n);
+  // int b[maxNo];
+  // for (int i = 0; i < n; i++)
+  // {
+  //   b[i] = -1;
+  // }
+  // int minIdx = INT_MAX;
+  // for (int i = 0; i < n; i++)
+  // {
+  //   if (b[a[i]] != -1)
+  //   {
+  //     minIdx = min(minIdx, b[a[i]]);
+  //   }
+  //   else
+  //   {
+  //     b[a[i]] = i;
+  //   }
+  // }
+  // if (minIdx == INT_MAX)
+  // {
+  //   cout << "-1" << endl;
+  // }
+  // else
+  // {
+  //   cout << minIdx + 1 << endl;
+  // }
 
   return 0;
 }
