@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-long long int replace_0_with_1(long int n)
+long long replace_0_with_1(long int n)
 {
   string str = to_string(n), str1 = "";
   for (int i = 0; i < str.length(); i++)
@@ -16,7 +16,7 @@ long long int replace_0_with_1(long int n)
 
 int main()
 {
-  long long int n = 26112621;
+  long long n = 26112621;
   n = replace_0_with_1(n);
   cout << n;
   return 0;
