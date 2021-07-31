@@ -1,2 +1,3 @@
-for (int i : a)
-  //   cout << i << " ";
+for (int a : c)
+    //   cout << a << " ";
+    // cout << endl;
