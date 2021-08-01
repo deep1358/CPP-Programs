@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n;
+int n = 20;
 
 template <class T>
 class Array
@@ -481,59 +481,219 @@ public:
     for (int i = 0; i < k; i++)
       p[i] = c[i];
   }
+
+  int find_single_missing_no_Sorted()
+  {
+    int diff;
+    if (p[0] == 1)
+      diff = 1;
+    else
+      diff = p[0];
+    for (int i = 0; i < length; i++)
+      if (_abs64(p[i] - i) != diff)
+        return p[i] - 1;
+    return -1;
+  }
+
+  void find_multiple_missing_no_Sorted()
+  {
+    int diff;
+    if (p[0] == 1)
+      diff = 1;
+    else
+      diff = p[0];
+    for (int i = 0; i < length; i++)
+      if (_abs64(p[i] - i) != diff)
+        while (diff < p[i] - i)
+        {
+          cout << diff + i << " ";
+          diff++;
+        }
+  }
+
+  void find_missing_no()
+  {
+    int a[max()] = {0};
+    for (int i = 0; i < length; i++)
+      a[p[i]]++;
+    for (int i = 1; i < max(); i++)
+      if (a[i] == 0)
+        cout << i << " ";
+  }
+
+  void find_duplicates_Sorted()
+  {
+    int lastDuplicate = 0;
+    for (int i = 0; i < length - 1; i++)
+    {
+      if (p[i] == p[i + 1] and p[i] != lastDuplicate)
+      {
+        cout << p[i] << " ";
+        lastDuplicate = p[i];
+      }
+    }
+  }
+
+  void find_duplicates()
+  {
+    map<int, int> m;
+    for (int i = 0; i < length; i++)
+      m[p[i]]++;
+    map<int, int>::iterator it;
+    for (it = m.begin(); it != m.end(); it++)
+      if (it->second > 1)
+        cout << it->first << " ";
+  }
+
+  int count_duplicates_Sorted()
+  {
+    int count = 0, j;
+    for (int i = 0; i < length - 1; i++)
+    {
+      if (p[i] == p[i + 1])
+      {
+        j = i + 1;
+        while (p[i] == p[j])
+          j++;
+        count += (j - i);
+        i = j - 1;
+      }
+    }
+    return count;
+  }
+
+  int count_duplicates()
+  {
+    int count = 0;
+    map<int, int> m;
+    for (int i = 0; i < length; i++)
+      m[p[i]]++;
+    map<int, int>::iterator it;
+    for (it = m.begin(); it != m.end(); it++)
+      if (it->second > 1)
+        count += it->second;
+    return count;
+  }
+
+  void pair_with_sum_map(int sum)
+  {
+    map<int, int> m;
+    for (int i = 0; i < length; i++)
+      m[p[i]]++;
+    for (int i = 0; i < length; i++)
+      if (m.find(sum - p[i]) != m.end() and m.at(sum - p[i]) > 0)
+      {
+        m[p[i]] = 0;
+        m[sum - p[i]] = 0;
+        cout << p[i] << " " << sum - p[i] << endl;
+      }
+  }
+
+  void pair_with_sum_m1(int sum)
+  {
+    for (int i = 0; i < length; i++)
+    {
+      if (p[i] != -1)
+        for (int j = i + 1; j < length; j++)
+          if (sum - p[i] == p[j])
+          {
+            cout << p[i] << " " << p[j] << endl;
+            p[i] = -1;
+            p[j] = -1;
+          }
+    }
+  }
+
+  void pair_with_sum_m2(int sum)
+  {
+    int a[max() + 1] = {0};
+    for (int i = 0; i < length; i++)
+    {
+      if (sum > p[i] and a[sum - p[i]] != 0)
+        cout << p[i] << " " << sum - p[i] << endl;
+      a[p[i]]++;
+    }
+  }
+
+  void pair_with_sum_Sorted(int sum)
+  {
+    int i = 0, j = length - 1;
+    while (j > i)
+    {
+      if (p[i] + p[j] == sum)
+      {
+        cout << p[i] << " " << p[j] << endl;
+        i++;
+        j--;
+      }
+      else if (p[i] + p[j] < sum)
+        i++;
+      else
+        j--;
+    }
+  }
+
+  void pair_with_diff_Sorted(int diff)
+  {
+    int i = 0, j = 1;
+    while (j < length and i < length)
+    {
+      if (p[j] - p[i] < diff)
+        j++;
+      else if (p[j] - p[i] > diff)
+        i++;
+      else
+      {
+        cout << p[j] << " " << p[i] << endl;
+        i++;
+        j++;
+      }
+    }
+  }
+
+  void pair_with_diff(int diff)
+  {
+    map<int, int> m;
+    for (int i = 0; i < length; i++)
+      m[p[i]]++;
+    for (int i = 0; i < length; i++)
+      if (m.find(diff + p[i]) != m.end() and m.at(diff + p[i]) > 0)
+      {
+        m[p[i]] = 0;
+        m[diff + p[i]] = 0;
+        cout << p[i] << " " << diff + p[i] << endl;
+      }
+  }
+
+  T second_largest()
+  {
+    T l = p[0], sl = p[0];
+    for (int i = 0; i < length; i++)
+    {
+      if (p[i] > l)
+      {
+        sl = l;
+        l = p[i];
+      }
+      else if (p[i] < l and p[i] > sl)
+      {
+        sl = p[i];
+      }
+    }
+    return sl;
+  }
 };
 
 int main()
 {
-  cout << "Enter Size of an array: ";
-  cin >> n;
-  cout << endl;
+  Array<int> arr(10);
+  arr.Append(10);
+  arr.Append(20);
+  arr.Append(70);
+  arr.Append(40);
+  arr.Append(60);
+  arr.Append(30);
 
-  Array<int> arr;
-
-  int x, pos, ch = 1;
-  while (ch == 1)
-  {
-    cout << "\nMenu\n1. Append\n2. Insert\n3. Delete\n4. Search\n5. Sum\n6. Display\n7. Exit\nEnter Your choice: ";
-    int choice;
-    cin >> choice;
-    switch (choice)
-    {
-    case 1:
-      cout << "Enter an element: ";
-      cin >> x;
-      cout << endl;
-      arr.Append(x);
-      break;
-    case 2:
-      cout << "Enter an element and position: ";
-      cin >> x >> pos;
-      cout << endl;
-      arr.Insert(x, pos);
-      break;
-    case 3:
-      cout << "Enter position: ";
-      cin >> pos;
-      cout << endl;
-      arr.Delete(pos);
-      break;
-    case 4:
-      cout << "Enter an Element to search: ";
-      cin >> x;
-      cout << "Found at " << arr.Binary_IndexOf(x) << endl;
-      break;
-    case 5:
-      cout << "Sum is: " << arr.sum() << endl;
-      break;
-    case 6:
-      arr.Display();
-      break;
-    case 7:
-      ch = 0;
-      break;
-    default:
-      break;
-    }
-  }
+  arr.pair_with_diff(50);
   return 0;
 }
