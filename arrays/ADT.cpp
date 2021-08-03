@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n = 20;
+int n = 100;
 
 template <class T>
 class Array
@@ -13,6 +13,13 @@ public:
   Array()
   {
     p = new T[n];
+  }
+
+  Array(initializer_list<T> list)
+  {
+    p = new T[list.size()];
+    for (auto i = list.begin(); i != list.end(); i++)
+      p[length++] = *i;
   }
 
   Array(int size)
@@ -49,7 +56,6 @@ public:
   void Insert(T x, int pos)
 
   {
-    // cout << length << endl;
     if (length == n)
     {
       cout << "Exceeded Size" << endl;
@@ -686,14 +692,8 @@ public:
 
 int main()
 {
-  Array<int> arr(10);
-  arr.Append(10);
-  arr.Append(20);
-  arr.Append(70);
-  arr.Append(40);
-  arr.Append(60);
-  arr.Append(30);
+  Array<int> arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 0, 11, 12, 1, 4, 5, 6, 5, 4, 5, 6, 6, 7};
 
-  arr.pair_with_diff(50);
+  arr.Display();
   return 0;
 }
