@@ -406,6 +406,75 @@ void RemoveCycle(Node *head)
   }
 }
 
+int Find_Middle1(Node *head)
+{
+  for (int i = 0; i <= Count_Node(head) / 2; i++)
+    head = head->next;
+  return head->data;
+}
+
+int Find_Middle2(Node *head)
+{
+  Node *temp = head, *temp1 = head;
+  while (temp1 != NULL)
+  {
+    temp1 = temp1->next;
+    if (temp1)
+      temp = temp->next;
+    if (temp1)
+      temp1 = temp1->next;
+  }
+  return temp->data;
+}
+
+int Find_Middle3(Node *head)
+{
+  stack<Node *> s;
+  Node *temp = head;
+  while (temp != NULL)
+  {
+    s.push(temp);
+    temp = temp->next;
+  }
+  for (int i = 0; i < s.size() / 2; i++)
+    head = head->next;
+  return head->data;
+}
+
+void Intersect(Node *head, Node *&head1, int pos)
+{
+  Node *temp = head1;
+  for (int i = 0; i < pos - 1; i++)
+    head = head->next;
+  while (temp->next != NULL)
+    temp = temp->next;
+  temp->next = head;
+}
+
+int Find_Intersecting_Point(Node *head, Node *head1)
+{
+  stack<Node *> s1;
+  stack<Node *> s2;
+  while (head != NULL)
+  {
+    s1.push(head);
+    head = head->next;
+  }
+  while (head1 != NULL)
+  {
+    s2.push(head1);
+    head1 = head1->next;
+  }
+  int data;
+  while (s1.top() == s2.top())
+  {
+    data = s1.top()->data;
+    s1.pop();
+    s2.pop();
+  }
+  return data;
+}
+
 int main()
 {
   Node *head = new Node(1);
@@ -414,9 +483,14 @@ int main()
   InsertTail(head, 8);
   InsertTail(head, 2);
   InsertTail(head, 4);
-  InsertTail(head, 15);
+  InsertTail(head, 11);
   InsertTail(head, 16);
   Display(head);
-
+  Node *head1 = new Node(10);
+  InsertTail(head1, 13);
+  InsertTail(head1, 12);
+  Intersect(head, head1, 6);
+  Display(head1);
+  cout << Find_Intersecting_Point(head, head1);
   return 0;
 }
