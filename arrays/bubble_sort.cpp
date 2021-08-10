@@ -1,11 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void swap(int *a, int *b)
+void swap(int &a, int &b)
 {
-  int temp = *a;
-  *a = *b;
-  *b = temp;
+  int temp = a;
+  a = b;
+  b = temp;
 }
 
 int main()
@@ -22,7 +22,7 @@ int main()
     for (int j = 0; j < n - i - 1; j++)
     {
       if (a[j] > a[j + 1])
-        swap(&a[j], &a[j + 1]);
+        swap(a[j], a[j + 1]);
     }
   }
   for (int i = 0; i < n; i++)
